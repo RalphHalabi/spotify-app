@@ -47,7 +47,7 @@ function LoginPage() {
 const authLogin =()=>{
 
   var client_id = 'e8411c9b7d384803a10667c7de4c9df2';
-var redirect_uri = 'http://localhost:5174/home';
+var redirect_uri = 'http://localhost:5173/home';
 
 var state : string = generateRandomString(16);
 
