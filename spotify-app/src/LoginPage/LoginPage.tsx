@@ -61,6 +61,12 @@ url += '&scope=' + encodeURIComponent(scope);
 url += '&redirect_uri=' + encodeURIComponent(redirect_uri);
 url += '&state=' + encodeURIComponent(state);
 
+
+   
+   
+
+   
+
 return url;
 
 }
