@@ -25,43 +25,45 @@ function Albums() {
       alert("You don't have access to Spotify. Try logging in again or check your account.");
       navigate("/");
     }
-  });
+  }, [accessToken, navigate]);
 
   const { data: artist, isLoading: isLoadingArtist, isError: isErrorArtist } = useQuery(
-    "searchArtists2",
+    ["searchArtists2", id],
     async () => {
-      try {
-        const response = await axios.get(`https://api.spotify.com/v1/artists/${id}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        return response.data;
-      } catch (error) {
+      const response = await axios.get(`https://api.spotify.com/v1/artists/${id}`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data;
+    },
+    {
+      enabled: !!id && !!accessToken,
+      onError: (error) => {
         if (axios.isAxiosError(error) && error.response?.data.error.message === "The access token expired") {
           navigate("/");
         }
-        throw error;
-      }
+      },
     }
   );
 
   const { data, isLoading, isError } = useQuery(
-    "searchAlbums",
+    ["searchAlbums", id],
     async () => {
-      try {
-        const response = await axios.get(`https://api.spotify.com/v1/artists/${id}/albums`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        return response.data.items as Album[];
-      } catch (error) {
+      const response = await axios.get(`https://api.spotify.com/v1/artists/${id}/albums`, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      return response.data.items as Album[];
+    },
+    {
+      enabled: !!id && !!accessToken,
+      onError: (error) => {
         if (axios.isAxiosError(error) && error.response?.data.error.message === "The access token expired") {
           navigate("/");
         }
-        throw error;
-      }
+      },
     }
   );
 
