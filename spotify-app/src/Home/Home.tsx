@@ -85,7 +85,7 @@ if(searchRef.current != ""){
   );
 
   const updateSearch = (e: any) => {
-    searchRef.current = e.target.value; // Update the value using .current
+    searchRef.current = e.target.value;
     refetch();
   };
 
@@ -100,7 +100,7 @@ navigate(`/albums/${id}`)
         <TextField
           placeholder="Search for an artist..."
           variant="outlined"
-          value={searchRef.current} // Get the value using .current
+          value={searchRef.current}
           onChange={(e) => updateSearch(e)}
           sx={{ width: mobile ? "250px" : "500px" }}
           InputProps={{
